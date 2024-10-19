@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XzTools Box</title>
+
+    <style>
+      .before-app-mount {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .before-app-mount #loader-text {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold ;
+        font-size: 1.5rem;
+        color: #999;
+        opacity: 0;
+        transition: all 1s ease;
+      }
+      .before-app-mount .loader-status-text {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        font-weight: bold ;
+        font-size: 1.2rem;
+        color: #6d6d6d;
+        opacity: 0;
+        transition: all 1s ease;
+      }
+      .before-app-mount .loader-status-text.css {
+        bottom: 40px;
+      }
+      .before-app-mount .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-D2LZVifD.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BQG4hn-a.css">
+  </head>
+  <body>
+    <div class="before-app-mount">
+      <div class="loader"></div>
+      <span id="loader-text"></span>
+      <span class="loader-status-text css">CSS 加载完成</span>
+      <span class="loader-status-text js">JavaScript 加载完成</span>
+    </div>
+    <script>
+      window.startTime = new Date();
+      if (localStorage.getItem('showLoaderStatusText') !== 'true') document.querySelectorAll(".loader-status-text").forEach((e) => e.parentElement.removeChild(e));
+      const loaderText = document.querySelector("#loader-text");
+      let timer = [
+        setTimeout(() => {
+          loaderText.innerHTML = "稍安勿躁";
+          loaderText.style.opacity = 1;
+        }, 5 * 1000)
+      ];
+      const notices = ['稍等片刻','很快了','拼命加载中','若长时间停留在此,请刷新页面'];
+      notices.forEach((e, i) => timer.push(setTimeout(() => loaderText.innerHTML = e, (i + 3) * 5 * 1000)))
+      window.closeLoadding = () => {
+        document.querySelector(".before-app-mount").style.display = "none";
+        timer.forEach((t) => clearTimeout(t));
+        delete window.closeLoadding;
+        console.log("用时 " + ((new Date() - window.startTime) / 1000).toFixed(2) + " s");
+      }
+    </script>
+    <div id="app"></div>
+  </body>
+
+  <!-- By FMaxCloud / XzNetwork Team. -->
+</html>
