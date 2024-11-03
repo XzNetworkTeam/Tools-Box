@@ -1,5 +1,5 @@
 # Tools.fmaxc.cn 
-**Powered by [FMaxCloud](www.fmaxc.cn).**
+**Powered by [FMaxCloud](https://www.fmaxc.cn).**
 
 ## 前端实用工具集网站
 
